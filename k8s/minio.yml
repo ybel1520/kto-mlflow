@@ -43,10 +43,10 @@ spec:
             - containerPort: 9001
           resources:
             requests:
-              cpu: "500m"
+              cpu: "400m"
               memory: 2048Mi
             limits:
-              cpu: "500m"
+              cpu: "400m"
               memory: 2048Mi
           lifecycle:
             postStart:
@@ -97,6 +97,21 @@ spec:
   path: ""
   port:
     targetPort: 9001
+  tls: null
+  to:
+    kind: Service
+    name: mlflow-minio-service
+    weight: 100
+---
+apiVersion: "route.openshift.io/v1"
+kind: Route
+metadata:
+  name: minio-api
+spec:
+  host: ""
+  path: ""
+  port:
+    targetPort: 9000
   tls: null
   to:
     kind: Service
